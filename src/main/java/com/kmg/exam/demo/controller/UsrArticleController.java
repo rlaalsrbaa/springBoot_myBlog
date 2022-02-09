@@ -3,17 +3,22 @@ package com.kmg.exam.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kmg.exam.demo.service.ArticleService;
 import com.kmg.exam.demo.vo.Article;
 
 @Controller
 public class UsrArticleController {
-	List<Article> articles;
-	int articlesLastId;
-
+	// 인스턴스 변수 시작
+	@Autowired
+	private ArticleService articleService;
+	private List<Article> articles;
+	private int articlesLastId;
+	// 인스턴스 변수 끝
 	public UsrArticleController() {
 		articles = new ArrayList<>();
 		articlesLastId = 0;
