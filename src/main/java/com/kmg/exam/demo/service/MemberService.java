@@ -2,8 +2,6 @@ package com.kmg.exam.demo.service;
 
 import org.springframework.stereotype.Service;
 
-import com.kmg.exam.demo.repository.ArticleRepository;
-
 @Service
 public class MemberService {
 
