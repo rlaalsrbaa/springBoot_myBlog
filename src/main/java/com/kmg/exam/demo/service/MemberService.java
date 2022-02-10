@@ -15,14 +15,25 @@ public class MemberService {
 	
 	public int doJoin(String loginId, String loginPw, String name,
 			String nickname, String cellphoneNo, String email) {
+		Member oldMember = getMemberByLoginId(loginId);
+		if(oldMember != null) {
+			return -1;
+		}
 		memeberRepository.createMember(loginId, loginPw, name, nickname,
-				cellphoneNo, email); 
+				cellphoneNo, email);
 		return memeberRepository.getLastInsertId();
+	}
+
+
+	private Member getMemberByLoginId(String loginId) {
+		return memeberRepository.getMemberByLoginId(loginId);
 	}
 
 
 	public Member getMemberById(int id) {
 		return memeberRepository.getMemberById(id);
 	}
+
+
 
 }
