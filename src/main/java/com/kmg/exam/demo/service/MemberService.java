@@ -10,30 +10,35 @@ import com.kmg.exam.demo.vo.Member;
 public class MemberService {
 
 	@Autowired
-	MemberRepository memeberRepository;
-	
-	
-	public int doJoin(String loginId, String loginPw, String name,
-			String nickname, String cellphoneNo, String email) {
+	MemberRepository memberRepository;
+
+	public int doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+
 		Member oldMember = getMemberByLoginId(loginId);
-		if(oldMember != null) {
+		if (oldMember != null) {
 			return -1;
 		}
-		memeberRepository.createMember(loginId, loginPw, name, nickname,
-				cellphoneNo, email);
-		return memeberRepository.getLastInsertId();
-	}
+		
+		oldMember = getMemberByNameAndEmail(name, email);
 
+		if (oldMember != null) {
+			return -2;
+		}
+
+		memberRepository.createMember(loginId, loginPw, name, nickname, cellphoneNo, email);
+		return memberRepository.getLastInsertId();
+	}
 
 	private Member getMemberByLoginId(String loginId) {
-		return memeberRepository.getMemberByLoginId(loginId);
+		return memberRepository.getMemberByLoginId(loginId);
 	}
-
 
 	public Member getMemberById(int id) {
-		return memeberRepository.getMemberById(id);
+		return memberRepository.getMemberById(id);
 	}
-
-
+	
+	private Member getMemberByNameAndEmail(String name, String email) {
+		return memberRepository.getMemberByNameAndEmail(name, email);
+	}
 
 }
