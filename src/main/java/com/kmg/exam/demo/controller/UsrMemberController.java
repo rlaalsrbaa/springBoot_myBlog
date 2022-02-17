@@ -47,14 +47,14 @@ public class UsrMemberController {
 			return ResultData.from("F-6", "email(을)를 입력해주세요.");
 		}
 
-		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
+		ResultData<Integer> oldRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 
-		if (joinRd.isFail()) {
-			return (ResultData) joinRd;
+		if (oldRd.isFail()) {
+			return (ResultData) oldRd;
 		}
 
-		Member member = memberService.getMemberById(joinRd.getData1());
-		return ResultData.newData(joinRd, member);
+		Member member = memberService.getMemberById(oldRd.getData1());
+		return ResultData.newData(oldRd, "member", member);
 	}
 
 	@RequestMapping("/usr/member/doLogout")
