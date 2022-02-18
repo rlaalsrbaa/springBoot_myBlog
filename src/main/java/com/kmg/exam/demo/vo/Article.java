@@ -13,5 +13,5 @@ public class Article{
 	private String body;
 	private int memberId;
 	private String regDate;
-	private String updataDate;
+	private String updateDate;
 }

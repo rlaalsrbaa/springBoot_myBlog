@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,6 +17,7 @@ import com.kmg.exam.demo.util.Ut;
 
 @Controller
 public class UsrArticleController {
+
 	@Autowired
 	private ArticleService articleService;
 
@@ -51,12 +53,12 @@ public class UsrArticleController {
 		return ResultData.newData(writeArticleRd, "article", article);
 	}
 
-	@RequestMapping("/usr/article/getArticles")
-	@ResponseBody
-	public ResultData<List<Article>> getArticles() {
+	@RequestMapping("/usr/article/list")
+	public String showList(Model model) {
 		List<Article> articles = articleService.getArticles();
+		model.addAttribute("articles", articles);
 
-		return ResultData.from("S-1", "게시물 리스트 입니다.", "articles", articles);
+		return "usr/article/list";
 	}
 
 	@RequestMapping("/usr/article/getArticle")
@@ -106,7 +108,7 @@ public class UsrArticleController {
 	public ResultData<Article> doModify(HttpSession httpSession, int id, String title, String body) {
 		boolean isLogined = false;
 		int loginedMemberId = 0;
-		
+
 		if (httpSession.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
 			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
@@ -115,16 +117,16 @@ public class UsrArticleController {
 		if (isLogined == false) {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
-		
+
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
 			ResultData.from("F-1", Ut.f("%d번 게시물이 존재하지 않습니다.", id));
 		}
-		
+
 		ResultData actorCanModifyRd = articleService.actorCanModify(loginedMemberId, article);
-		
-		if ( actorCanModifyRd.isFail() ) {
+
+		if (actorCanModifyRd.isFail()) {
 			return actorCanModifyRd;
 		}
 
