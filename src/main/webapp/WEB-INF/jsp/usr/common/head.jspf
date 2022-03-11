@@ -35,9 +35,7 @@
 		<div class="h-20 flex container mx-auto">
 			<a href="/" class="flex items-center px-3"> <span>로고</span>
 			</a>
-
 			<div class="flex-grow"></div>
-
 			<ul class="flex">
 				<li><a class="h-full flex px-3 items-center hover:underline"
 					href="/"> <span>홈</span>
