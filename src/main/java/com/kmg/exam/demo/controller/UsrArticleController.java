@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kmg.exam.demo.service.ArticleService;
+import com.kmg.exam.demo.service.BoardService;
 import com.kmg.exam.demo.util.Ut;
 import com.kmg.exam.demo.vo.Article;
+import com.kmg.exam.demo.vo.Board;
 import com.kmg.exam.demo.vo.ResultData;
 import com.kmg.exam.demo.vo.Rq;
 
@@ -20,13 +22,19 @@ import com.kmg.exam.demo.vo.Rq;
 public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
+	private BoardService boardService;
+
+	public UsrArticleController(ArticleService articleService, BoardService boardService) {
+		this.articleService = articleService;
+		this.boardService = boardService;
+	}
 
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/write")
 	public String showWrite(HttpServletRequest req, Model model) {
 		return "usr/article/write";
 	}
-	
+
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public String doWrite(HttpServletRequest req, String title, String body, String replaceUri) {
@@ -49,13 +57,16 @@ public class UsrArticleController {
 
 		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.", id), replaceUri);
 	}
-	
+
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
+		Board board = boardService.getBoardById(boardId);
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
 
+		
+		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";
@@ -91,7 +102,6 @@ public class UsrArticleController {
 	public String doDelete(HttpServletRequest req, int id) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		if (article.getMemberId() != rq.getLoginedMemberId()) {
@@ -124,7 +134,7 @@ public class UsrArticleController {
 		}
 
 		model.addAttribute("article", article);
-		
+
 		return "usr/article/modify";
 	}
 
@@ -147,7 +157,8 @@ public class UsrArticleController {
 
 		articleService.modifyArticle(id, title, body);
 
-		return Ut.jsReplace(Ut.f("%d번 글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));	}
+		return Ut.jsReplace(Ut.f("%d번 글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
+	}
 	// 액션 메서드 끝
-	
+
 }
