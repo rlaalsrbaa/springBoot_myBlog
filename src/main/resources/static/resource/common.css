@@ -20,7 +20,7 @@ html > body {
  font-family: 'LotteMartDream', sans-serif;
 } 
 
-/* ë¼ì´ë¸ŒëŸ¬ë¦¬ */
+/*  */
 .table-box-type-1 > table {
   width:100%;
 }
@@ -39,4 +39,9 @@ html > body {
 
 .btn-text-link:hover {
   text-decoration: underline;
+}
+
+/* Ä¿½ºÅÒ */
+body {
+  min-width:800px;
 }
