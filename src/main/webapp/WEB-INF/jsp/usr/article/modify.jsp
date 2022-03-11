@@ -41,7 +41,8 @@
 					<tr>
 						<th>내용</th>
 						<td><textarea class="w-full textarea textarea-bordered"
-								name="body" rows="10">${article.body}</textarea></td>
+								name="body" rows="10" placeholder="내용">${article.body}</textarea>
+						</td>
 					</tr>
 					<tr>
 						<th>수정</th>
@@ -56,7 +57,6 @@
 		</form>
 
 		<div class="btns">
-			<button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
 			<a class="btn btn-link" href="../article/detail?id=${article.id}">게시물
 				상세페이지</a>
 			<c:if test="${article.extra__actorCanModify}">
