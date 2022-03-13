@@ -8,8 +8,8 @@
   <div class="container mx-auto px-3">
     <div>게시물 개수 : ${articlesCount}개</div>
 
-    <div class="table-box-type-1">
-      <table>
+    <div class="mt-3">
+      <table class="table table-fixed w-full">
         <colgroup>
           <col width="50" />
           <col width="150" />
@@ -34,7 +34,8 @@
               <td>${article.updateDate.substring(2, 16)}</td>
               <td>${article.extra__writerName}</td>
               <td>
-                <a class="btn-text-link" href="../article/detail?id=${article.id}">${article.title}</a>
+                <a class="btn-text-link block w-full truncate" href="../article/detail?id=${article.id}">
+                  ${article.title} </a>
               </td>
             </tr>
           </c:forEach>
@@ -58,7 +59,7 @@
           </c:if>
         </c:if>
         <c:forEach begin="${startPage}" end="${endPage}" var="i">
-          <a class="btn btn-sm ${page == i ? 'btn-active' : ''}" href="${pageBaseUri}&page=${i}">${i}</a>          
+          <a class="btn btn-sm ${page == i ? 'btn-active' : ''}" href="${pageBaseUri}&page=${i}">${i}</a>
         </c:forEach>
         <c:if test="${endPage < pagesCount}">
           <c:if test="${endPage < pagesCount - 1}">
