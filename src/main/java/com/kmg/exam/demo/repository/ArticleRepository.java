@@ -11,6 +11,7 @@ import com.kmg.exam.demo.vo.Article;
 
 @Mapper
 public interface ArticleRepository {
+	
 	public void writeArticle(@Param("memberId") int memberId, @Param("boardId") int boardId,
 			@Param("title") String title, @Param("body") String body);
 
@@ -117,15 +118,6 @@ public interface ArticleRepository {
 			""")
 	public int getArticleHitCount(int id);
 
-	@Select("""
-			<script>
-			SELECT IFNULL(SUM(RP.point), 0) AS s
-			FROM reactionPoint AS RP
-			WHERE RP.relTypeCode = 'article'
-			AND RP.relId = #{id}
-			AND RP.memberId = #{memberId}
-			</script>
-			""")
-	public int getSumReactionPointByMemberId(int id, int memberId);
+	
 
 }
