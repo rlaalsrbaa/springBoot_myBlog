@@ -2,9 +2,11 @@ package com.kmg.exam.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
 import com.kmg.exam.demo.vo.Reply;
 
 @Mapper
@@ -36,4 +38,27 @@ public interface ReplyRepository {
 			ORDER BY R.id DESC
 			""")
 	List<Reply> getForPrintReplies(String relTypeCode, int relId);
+	
+	@Select("""
+			SELECT R.*,
+			M.nickname AS extra__writerName
+			FROM reply AS R
+			LEFT JOIN `member` AS M
+			ON R.memberId = M.id
+			WHERE R.id = #{id}
+			""")
+	Reply getForPrintReply(int id);
+
+	@Select("""
+			SELECT R.*
+			FROM reply AS R
+			WHERE R.id = #{id}
+			""")
+	Reply getReply(int id);
+
+	@Delete("""
+			DELETE FROM reply
+			WHERE id = #{id}
+			""")
+	void deleteReply(int id);
 }
