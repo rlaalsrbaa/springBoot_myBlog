@@ -67,6 +67,10 @@ public class Rq {
 		}
 	}
 
+	public boolean isNotLogined() {
+		return !isLogined;
+	}
+
 	public void println(String str) {
 		print(str + "\n");
 	}
@@ -93,18 +97,18 @@ public class Rq {
 		return Ut.jsReplace(msg, uri);
 	}
 
-	public void initOnBeforeActionInterceptor() {	
+	public void initOnBeforeActionInterceptor() {
 	}
-	
+
 	public String getCurrentUri() {
 		String currentUri = req.getRequestURI();
-        String queryString = req.getQueryString();
+		String queryString = req.getQueryString();
 
-        if (queryString != null && queryString.length() > 0) {
-            currentUri += "?" + queryString;
-        }
+		if (queryString != null && queryString.length() > 0) {
+			currentUri += "?" + queryString;
+		}
 
-        return currentUri;
+		return currentUri;
 	}
 
 	public String getEncodedCurrentUri() {
