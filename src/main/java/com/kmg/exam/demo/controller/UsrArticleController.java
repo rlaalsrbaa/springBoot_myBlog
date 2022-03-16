@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kmg.exam.demo.service.ArticleService;
 import com.kmg.exam.demo.service.BoardService;
 import com.kmg.exam.demo.service.ReactionPointService;
+import com.kmg.exam.demo.service.ReplyService;
 import com.kmg.exam.demo.util.Ut;
 import com.kmg.exam.demo.vo.Article;
 import com.kmg.exam.demo.vo.Board;
+import com.kmg.exam.demo.vo.Reply;
 import com.kmg.exam.demo.vo.ResultData;
 import com.kmg.exam.demo.vo.Rq;
 
@@ -25,13 +27,15 @@ public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
 	private BoardService boardService;
+	private ReplyService replyService;
 	private Rq rq;
 	private ReactionPointService reactionPointService;
 
-	public UsrArticleController(ArticleService articleService, BoardService boardService, ReactionPointService reactionPointService, Rq rq) {
-
+	public UsrArticleController(ArticleService articleService, BoardService boardService,
+			ReactionPointService reactionPointService, ReplyService replyService, Rq rq) {
 		this.articleService = articleService;
 		this.boardService = boardService;
+		this.replyService = replyService;
 		this.reactionPointService = reactionPointService;
 		this.rq = rq;
 
@@ -94,27 +98,31 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
-		
+
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
-		
 
-		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), "article", id);
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
+		int repliesCount = replies.size();
+
+		model.addAttribute("repliesCount", repliesCount);
+
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),
+				"article", id);
 
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionPointRd.isSuccess());
 
-		if ( actorCanMakeReactionPointRd.getResultCode().equals("F-2") ) {
-			int sumReactionPointByMemberId = (int)actorCanMakeReactionPointRd.getData1();
+		if (actorCanMakeReactionPointRd.getResultCode().equals("F-2")) {
+			int sumReactionPointByMemberId = (int) actorCanMakeReactionPointRd.getData1();
 
-			if ( sumReactionPointByMemberId > 0 ) {
+			if (sumReactionPointByMemberId > 0) {
 				model.addAttribute("actorCanCancelGoodReaction", true);
-			}
-			else {
+			} else {
 				model.addAttribute("actorCanCancelBadReaction", true);
 			}
 		}
-		
+
 		return "usr/article/detail";
 	}
 
@@ -127,14 +135,14 @@ public class UsrArticleController {
 			return increaseHitCountRd;
 		}
 
-		ResultData<Integer> rd = ResultData.newData(increaseHitCountRd, "hitCount", articleService.getArticleHitCount(id));
-
+		ResultData<Integer> rd = ResultData.newData(increaseHitCountRd, "hitCount",
+				articleService.getArticleHitCount(id));
+		
 		rd.setData2("id", id);
 
 		return rd;
 	}
-	
-	
+
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
 	public ResultData<Article> getArticle(int id) {
