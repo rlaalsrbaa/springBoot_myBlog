@@ -11,7 +11,7 @@ import com.kmg.exam.demo.vo.Article;
 
 @Mapper
 public interface ArticleRepository {
-	
+
 	public void writeArticle(@Param("memberId") int memberId, @Param("boardId") int boardId,
 			@Param("title") String title, @Param("body") String body);
 
@@ -136,4 +136,21 @@ public interface ArticleRepository {
 			""")
 	public int increaseBadReactionPoint(int id);
 
+	@Update("""
+			<script>
+			UPDATE article
+			SET goodReactionPoint = goodReactionPoint - 1
+			WHERE id = #{id}
+			</script>
+			""")
+	public int decreaseGoodReactionPoint(int id);
+
+	@Update("""
+			<script>
+			UPDATE article
+			SET badReactionPoint = badReactionPoint - 1
+			WHERE id = #{id}
+			</script>
+			""")
+	public int decreaseBadReactionPoint(int id);
 }
