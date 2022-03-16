@@ -17,7 +17,7 @@ import com.kmg.exam.demo.vo.Rq;
 public class UsrMemberController {
 	private MemberService memberService;
 	private Rq rq;
-	
+
 	public UsrMemberController(MemberService memberService, Rq rq) {
 		this.memberService = memberService;
 		this.rq = rq;
@@ -84,7 +84,6 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogin(String loginId, String loginPw) {
 
-		
 		if (rq.isLogined()) {
 			return rq.jsHistoryBack("이미 로그인되었습니다.");
 		}
@@ -110,5 +109,10 @@ public class UsrMemberController {
 		rq.login(member);
 
 		return Ut.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
+	}
+
+	@RequestMapping("/usr/member/myPage")
+	public String showMyPage() {
+		return "usr/member/myPage";
 	}
 }
