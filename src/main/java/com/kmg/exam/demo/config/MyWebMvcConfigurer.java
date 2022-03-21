@@ -30,6 +30,13 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		InterceptorRegistration ir;
 
+
+		ir = registry.addInterceptor(beforeActionInterceptor);
+		ir.addPathPatterns("/**");
+		ir.excludePathPatterns("/favicon.ico");
+		ir.excludePathPatterns("/resource/**");
+		ir.excludePathPatterns("/error");
+
 		ir = registry.addInterceptor(needLoginInterceptor);
 		ir.addPathPatterns("/usr/member/myPage");
 		ir.addPathPatterns("/usr/member/checkPassword");
