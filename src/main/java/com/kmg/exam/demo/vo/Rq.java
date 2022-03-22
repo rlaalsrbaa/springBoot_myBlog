@@ -97,9 +97,14 @@ public class Rq {
 		return Ut.jsReplace(msg, uri);
 	}
 
-	public void initOnBeforeActionInterceptor() {
+	public void runA() {
+		System.out.println("A 호출됨!");
+		runB();
 	}
 
+	public void runB() {
+		System.out.println("B 호출됨!");	
+	}
 	public String getCurrentUri() {
 		String currentUri = req.getRequestURI();
 		String queryString = req.getQueryString();
