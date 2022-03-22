@@ -15,10 +15,10 @@ import com.kmg.exam.demo.util.Ut;
 
 import lombok.Getter;
 
+
 @Component
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Rq {
-
 	@Getter
 	private boolean isLogined;
 	@Getter
@@ -35,6 +35,7 @@ public class Rq {
 		this.resp = resp;
 
 		this.session = req.getSession();
+
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 		Member loginedMember = null;
@@ -43,20 +44,16 @@ public class Rq {
 			isLogined = true;
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 			loginedMember = memberService.getMemberById(loginedMemberId);
-
 		}
 
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
-		this.req.setAttribute("rq", this);
 	}
 
 	public void printHistoryBackJs(String msg) {
 		resp.setContentType("text/html; charset=UTF-8");
-
 		print(Ut.jsHistoryBack(msg));
-
 	}
 
 	public void print(String str) {
@@ -66,7 +63,7 @@ public class Rq {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public boolean isNotLogined() {
 		return !isLogined;
 	}
@@ -96,27 +93,28 @@ public class Rq {
 	public String jsReplace(String msg, String uri) {
 		return Ut.jsReplace(msg, uri);
 	}
+	
+	public String getCurrentUri() {
+		String currentUri = req.getRequestURI();
+        String queryString = req.getQueryString();
+
+        if (queryString != null && queryString.length() > 0) {
+            currentUri += "?" + queryString;
+        }
+        
+        return currentUri;
+	}
+	
+	public String getEncodedCurrentUri() {
+		return Ut.getUriEncoded(getCurrentUri());
+	}
 
 	public void runA() {
 		System.out.println("A 호출됨!");
 		runB();
 	}
-
+	
 	public void runB() {
 		System.out.println("B 호출됨!");	
-	}
-	public String getCurrentUri() {
-		String currentUri = req.getRequestURI();
-		String queryString = req.getQueryString();
-
-		if (queryString != null && queryString.length() > 0) {
-			currentUri += "?" + queryString;
-		}
-
-		return currentUri;
-	}
-
-	public String getEncodedCurrentUri() {
-		return Ut.getUriEncoded(getCurrentUri());
 	}
 }

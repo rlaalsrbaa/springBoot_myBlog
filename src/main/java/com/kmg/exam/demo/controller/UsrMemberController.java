@@ -135,7 +135,7 @@ public class UsrMemberController {
 		if ( Ut.empty(memberModifyAuthKey) ) {
 			return rq.historyBackJsOnView("memberModifyAuthKey(이)가 필요합니다.");
 		}
-
+		
 		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(), memberModifyAuthKey);
 
 		if ( checkMemberModifyAuthKeyRd.isFail() ) {

@@ -78,7 +78,7 @@
 		<form class="table-box-type-1" method="POST"
 			action="../member/doModify"
 			onsubmit="MemberModify__submit(this); return false;">
-			<input type="hidden" name="memberModifyAuthKey"
+			<input type="text" name="memberModifyAuthKey"
 				value="${param.memberModifyAuthKey}" />
 
 			<table>
@@ -98,7 +98,7 @@
 					<tr>
 						<th>새 로그인비밀번호 확인</th>
 						<td><input class="input input-bordered" name="loginPwConfirm"
-							placeholder="새 비밀번호를 입력해주세요." type="password"  required="required"/></td>
+							placeholder="새 비밀번호를 입력해주세요." type="password"/></td>
 					</tr>
 					<tr>
 						<th>이름</th>

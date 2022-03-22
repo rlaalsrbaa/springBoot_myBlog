@@ -15,4 +15,4 @@
   if (replaceUri) {
     location.replace(replaceUri);
   }
-</script> 
+</script>
