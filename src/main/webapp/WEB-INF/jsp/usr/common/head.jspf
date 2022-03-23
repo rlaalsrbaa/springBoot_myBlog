@@ -54,13 +54,13 @@
 						href="${rq.loginUri}"> <span>로그인</span>
 					</a></li>
 				</c:if>
-        <c:if test="${rq.logined}">
+				<c:if test="${rq.logined}">
 					<li><a class="h-full flex px-3 items-center hover:underline"
 						href="/usr/member/myPage"> <span>${rq.loginedMember.nickname}'s
 								Profile</span>
 					</a></li>
 					<li><a class="h-full flex px-3 items-center hover:underline"
-						href="/usr/member/doLogout"> <span>로그아웃</span>
+						href="${rq.logoutUri}"> <span>로그아웃</span>
 					</a></li>
 				</c:if>
 			</ul>
