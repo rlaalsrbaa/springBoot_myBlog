@@ -4,6 +4,9 @@
 
 <c:set var="pageTitle" value="회원가입" />
 <%@ include file="../common/head.jspf"%>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
 
 <script type="text/javascript">
 	let submitJoinFormDone = false;
@@ -95,6 +98,7 @@
 			}
 		}, 'json');
 	}
+	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 200);
 </script>
 
 <section class="mt-5">
@@ -111,8 +115,8 @@
 					<tr>
 						<th>로그인아이디</th>
 						<td><input name="loginId" class="w-96 input input-bordered"
-							type="text" placeholder="로그인아이디" onkeyup="checkLoginIdDup(this);"
-							autocomplete="off" />
+							type="text" placeholder="로그인아이디"
+							onkeyup="checkLoginIdDupDebounced(this);" autocomplete="off" />
 							<div class="loginId-message"></div></td>
 					</tr>
 					<tr>
