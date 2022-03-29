@@ -7,7 +7,7 @@
 
 <section class="mt-5">
   <div class="container mx-auto px-3">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae eaque tenetur quis aut quidem sed doloribus? Quasi illo laborum labore iste optio sit dolorum vel nemo aliquid rerum excepturi tempore.
+    dd
   </div>
 </section>
 

@@ -34,6 +34,17 @@ public interface ArticleRepository {
 
 	@Select("""
 			<script>
+			SELECT *
+			FROM Article AS A
+			WHERE boardId = #{boardId}
+			ORDER BY A.id DESC
+			LIMIT 5
+			</script>
+			""")
+	public List<Article> getShowMainArticles(int boardId);
+	
+	@Select("""
+			<script>
 			SELECT A.*,
 			M.nickname AS extra__writerName
 			FROM article AS A
@@ -68,6 +79,8 @@ public interface ArticleRepository {
 			""")
 	public List<Article> getForPrintArticles(int boardId, String searchKeywordTypeCode, String searchKeyword,
 			int limitStart, int limitTake);
+	
+	
 
 	public int getLastInsertId();
 
