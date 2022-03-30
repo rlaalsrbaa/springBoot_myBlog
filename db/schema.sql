@@ -1,9 +1,10 @@
-DROP DATABASE IF EXISTS sb_test_production;
+DROP DATABASE IF EXISTS sb_test;
 CREATE DATABASE sb_test;
+
 DROP DATABASE IF EXISTS sb_test_production;
-CREATE DATABASE sb_test;
+CREATE DATABASE sb_test_production;
 # _production
-USE sb_test;
+USE sb_test_production;
 
 # 게시물 테이블 생성
 CREATE TABLE article (
@@ -112,7 +113,7 @@ INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
 `code` = 'free',
-`name` = '자유게시판';
+`name` = '자유';
 
 INSERT INTO board
 SET regDate = NOW(),
@@ -209,6 +210,7 @@ relId = 1,
 ALTER TABLE article
 ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
+	
 # 게시물 테이블 badReactionPoint 칼럼을 추가
 ALTER TABLE article
 ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;

@@ -35,7 +35,7 @@ public interface ArticleRepository {
 	@Select("""
 			<script>
 			SELECT *
-			FROM Article AS A
+			FROM article AS A
 			WHERE boardId = #{boardId}
 			ORDER BY A.id DESC
 			LIMIT 5

@@ -14,7 +14,6 @@
 <!-- 노말라이즈, 라이브러리까지 한방에 해결 -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
-
 <!-- 데이지 UI -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/2.6.4/full.css" />
