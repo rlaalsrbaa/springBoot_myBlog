@@ -7,11 +7,11 @@
 <%@ include file="../common/head.jspf"%>
 
 <section class="mt-5">
-	<div class="container mx-auto p-3 border-2">
+	<div class="container mx-auto p-3 border-2 border-purple-200		">
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
 
 
-			<div class=" border-2 p-3 m-2 ">
+			<div class=" border-2 p-3 m-2 border-purple-100		">
 				<p class="text-xl m-2 font-bold">${tipAndTechBoard.name }게시판</p>
 				<c:forEach var="article" items="${tipAndTechArticles}">
 					<div
@@ -28,7 +28,7 @@
 				<div class="border-t-2"></div>
 			</div>
 			
-			<div class=" border-2 border-slate-300 p-3 m-2 ">
+			<div class=" border-2 border-purple-100 p-3 m-2 ">
 				<p class="text-xl m-2 font-bold">${freeBoard.name }게시판</p>
 				<c:forEach var="article" items="${freeArticles}">
 					<div
@@ -45,7 +45,7 @@
 				<div class="border-t-2"></div>
 
 			</div>
-			<div class=" border-2 border-slate-300 p-3 m-2 ">
+			<div class=" border-2 border-purple-100 p-3 m-2 ">
 				<p class="text-xl m-2 font-bold">${noticeBoard.name }게시판</p>
 				<c:forEach var="article" items="${noticeArticles}">
 					<div
